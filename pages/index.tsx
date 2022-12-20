@@ -129,19 +129,20 @@ function HomePage() {
         </table>
         <h3 className="mt-5">How it works</h3>
         <p>
-          The depth of an object falling freely under the influence of gravity is calculated using the formula:
+          This app measures the depth of an object falling through the air under the influence of gravity. When you start the measurement, the app uses the current time as a reference point and begins tracking the elapsed time. It also calculates the meters traveled by the object in free fall using the following formula:
         </p>
         <p className="text-center code-style">
-          depth = acceleration due to gravity * time<sup>2</sup> / 2
+          depth = (Mass * Gravity * Time<sup>2</sup>) / (2 * Drag * Area * Air Density)
         </p>
         <p>
-          In this case, the acceleration due to gravity is a constant value of 9.8 m/s<sup>2</sup>, as defined at the top of the file. The time is calculated as the elapsed time since the object started falling.
+          In this case, the acceleration due to gravity is a constant value of 9.8 m/s<sup>2</sup> The time is calculated as the elapsed time since the object started falling.
+          The rest of the vaules in the formula use default values for the average situation on Earth and an object the size of a marble to a fist.
         </p>
         <p>
           The resulting depth is expressed in meters. As the time increases, the depth also increases, following a parabolic curve.
         </p>
         <p>
-          You can see a visual representation of this process for velocity and time in the graph below:
+          You can see a visual representation of this process in the graph below:
         </p>
         <img src="https://imgs.search.brave.com/xPCGLBPB-4JWLlnS1OS5QjxHWCzkr66u18nT9X50avM/rs:fit:1134:992:1/g:ce/aHR0cDovLzQuYnAu/YmxvZ3Nwb3QuY29t/Ly1MQUIzMFNqNHNY/by9VYmxpVzZFbzJV/SS9BQUFBQUFBQUJh/SS9DRGF4bWc5UG5k/by9zMTYwMC9HcmFw/aDYtMDQucG5n" alt="Graph showing the relationship between time and depth for a falling object" className="img-fluid" />
         <p>
