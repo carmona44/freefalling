@@ -31,7 +31,7 @@ function HomePage() {
           setDepth(calculateDepth((Date.now() - startTime) / 1000));
           setElapsedTime((Date.now() - startTime) / 1000);
         }
-      }, 100);
+      }, 1);
       return () => clearInterval(intervalId);
     }
   }, [isMeasuring, startTime]);
