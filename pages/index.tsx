@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// Default values for the average situation on Earth and an object the size of a marble to a fist"
 const ACCELERATION_DUE_TO_GRAVITY = 9.8; // m/s^2
 
-function calculateDepth(time: number): number {
-  return ACCELERATION_DUE_TO_GRAVITY * time ** 2 / 2;
+function calculateDepth(time: number, mass = 50, area = 0.01, dragCoefficient = 0.5, airDensity = 1.2): number {
+  const forceDueToGravity = mass * ACCELERATION_DUE_TO_GRAVITY;
+  const forceDueToDrag = 0.5 * airDensity * area * dragCoefficient * (time * ACCELERATION_DUE_TO_GRAVITY) ** 2;
+  const totalForce = forceDueToGravity - forceDueToDrag;
+  return totalForce * time / mass;
 }
+
 
 function HomePage() {
   const [startTime, setStartTime] = useState<number | null>(null);
