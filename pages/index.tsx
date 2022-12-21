@@ -182,12 +182,11 @@ function HomePage() {
                       onChange={event => handleNameChange(event, index)}
                     />
                   </td>
-                  <td className='text-center'>{measurement.depth.toFixed(2)}</td>
-                  <td className='text-center'>{measurement.elapsedTime.toFixed(2)}</td>
-                  <td className='text-center'>{measurement.impactVelocity.toFixed(2)}</td>
-                  <td>
-                    <button type="button" className="btn btn-danger" onClick={() => handleDeleteClick(index)}>
-                      <img src="close.png" />
+                  <td className='text-center align-middle'>{measurement.depth.toFixed(2)}</td>
+                  <td className='text-center align-middle'>{measurement.elapsedTime.toFixed(2)}</td>
+                  <td className='text-center align-middle'>{measurement.impactVelocity.toFixed(2)}</td>
+                  <td className='text-center align-middle'>
+                    <button type="button" className="btn-close" aria-label="Close" onClick={() => handleDeleteClick(index)}>
                     </button>
                   </td>
                 </tr>
@@ -229,9 +228,6 @@ function HomePage() {
           Puedes ver una representación visual en el gráfico siguiente:
         </p>
         <Line options={chartOptions} data={chartData} />
-        <p className='mt-5'>
-          Esta app usa: <a href="https://www.flaticon.com/free-icons/equis" title="equis icons">Equis icons created by Radhe Icon - Flaticon</a>
-        </p>
         <footer className="text-center mt-5 footer-margin">
           Made with <span role="img" aria-label="heart">❤️</span> by <a href="https://github.com/carmona44">Carmona44</a> with <a href="https://chat.openai.com/chat">ChatGPT</a>
         </footer>
