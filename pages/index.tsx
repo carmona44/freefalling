@@ -30,7 +30,7 @@ export const chartOptions = {
     },
     title: {
       display: true,
-      text: 'Free fall chart',
+      text: 'Gráfica representativa del MRUA',
     },
   },
 };
@@ -80,7 +80,7 @@ function HomePage() {
     setStartTime(null);
     // Guardar la medición en el almacenamiento local
     if (depth !== null && elapsedTime !== null) {
-      let measurement = { depth, elapsedTime, name: 'Measurement' };
+      let measurement = { depth, elapsedTime, name: 'Mediciones' };
       setMeasurementHistory([...measurementHistory, measurement]);
       localStorage.setItem('measurementHistory', JSON.stringify(measurementHistory));
     }
@@ -107,7 +107,7 @@ function HomePage() {
     labels: elapsedTimeValues, // Array of values for the x-axis
     datasets: [
       {
-        label: 'Depth (m)',
+        label: 'Distancia (m)',
         fill: false,
         lineTension: 0.3,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -133,33 +133,33 @@ function HomePage() {
       <form>
         <div className="form-group d-flex justify-content-center align-items-center mb-5">
           <div className="mr-5 text-center">
-            <span className="mb-0 text-center">Depth(m)</span>
+            <span className="mb-0 text-center">Distancia (m)</span>
             <h1 className="mb-0" style={{ fontSize: '52px' }}>{depth !== null ? depth.toFixed(2) : '0'}</h1>
           </div>
           <div className="mx-4" />
           <div className="mr-5 text-center">
-            <span className="mb-0 text-center">Time(s)</span>
+            <span className="mb-0 text-center">Tiempo (s)</span>
             <h1 className="mb-0" style={{ fontSize: '52px' }}>{elapsedTime !== null ? elapsedTime.toFixed(2) : '-'}</h1>
           </div>
         </div>
         <div className="form-group d-flex justify-content-center">
           {isMeasuring ? (
             <button type="button" className="btn btn-danger animated pulse" onClick={handleStopClick}>
-              Stop
+              Parar
             </button>
           ) : (
             <button type="button" className="btn btn-success animated pulse" onClick={handleStartClick}>
-              Start
+              Comenzar
             </button>
           )}
         </div>
-        <h3 className="mt-5">Measurement History</h3>
+        <h3 className="mt-5">Historial de mediciones</h3>
         <table className="table">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Depth</th>
-              <th>Time</th>
+              <th>Nombre</th>
+              <th>Distancia</th>
+              <th>Tiempo</th>
               <th></th>
             </tr>
           </thead>
@@ -185,26 +185,42 @@ function HomePage() {
             ))}
           </tbody>
         </table>
-        <h3 className="mt-5">How it works</h3>
+        <h3 className="mt-5">Cómo funciona</h3>
         <p>
-          This app measures the depth of an object falling through the air under the influence of gravity. When you start the measurement, the app uses the current time as a reference point and begins tracking the elapsed time. It also calculates the meters traveled by the object in free fall using the following formula:
+          La distancia recorrida por un objeto en caída libre es la distancia que recorre el objeto desde el punto en el que comienza a caer hasta el punto en el que toca el suelo. La caída libre es un movimiento en el que un objeto se deja caer desde una altura sin que ninguna fuerza externa actúe sobre él, por lo que la única fuerza que actúa sobre el objeto es la gravedad.
         </p>
+        <p>Para calcular la distancia recorrida por un objeto en caída libre, se puede utilizar la siguiente fórmula:</p>
         <p className="text-center code-style">
-          depth = Gravity * Time<sup>2</sup> / 2
+          Distancia = g * t<sup>2</sup> / 2
+        </p>
+        <div>
+          En esta fórmula:
+          <ul>
+            <li>
+              g es la aceleración debida a la gravedad, que es de aproximadamente 9,8 m/s^2 en la Tierra.
+            </li>
+            <li>
+              t es el tiempo que ha pasado desde que el objeto comenzó a caer.
+            </li>
+          </ul>
+        </div>
+        <p>
+          Es importante tener en cuenta que esta fórmula solo es precisa si el objeto está en caída libre y no está siendo afectado por otras fuerzas, como la resistencia del aire.
+          Si el objeto está siendo afectado por otras fuerzas, es necesario tener en cuenta esas fuerzas al calcular la distancia recorrida.
+          Otro dato a tener en cuenta es el tiempo que tarda el sonido en llegar a nosotros. El impacto del objeto contra el suelo emitirá un sonido que tardará un tiempo en llegar a
+          nuestro oído y será entonces cuando paremos el tiempo.
         </p>
         <p>
-          In this case, the acceleration due to gravity is a constant value of 9.8 m/s<sup>2</sup> The time is calculated as the elapsed time since the object started falling.
-          The rest of the vaules in the formula use default values for the average situation on Earth and an object the size of a marble to a fist.
+          Cabe destacar que para que la medición sea extrictamente exacta, habría que tener buenos aparatos de medición los cuales en la mayoría de casos no vamos a tener a nuestro alcance
+          por lo que para el uso de esta app se han obviado y se centra en el cálculo general del Movimiento Rectilíneo Uniformemente Acelerado (MRUA) representado matemáticamente en la fórmula
+          anteriormente citada.
         </p>
         <p>
-          The resulting depth is expressed in meters. As the time increases, the depth also increases, following a parabolic curve.
-        </p>
-        <p>
-          You can see a visual representation of this process in the graph below:
+          Puedes ver una representación visual en el gráfico siguiente:
         </p>
         <Line options={chartOptions} data={chartData} />
         <p>
-          This app use: <a href="https://www.flaticon.com/free-icons/equis" title="equis icons">Equis icons created by Radhe Icon - Flaticon</a>
+          Esta app usa: <a href="https://www.flaticon.com/free-icons/equis" title="equis icons">Equis icons created by Radhe Icon - Flaticon</a>
         </p>
         <footer className="text-center mt-5 footer-margin">
           Made with <span role="img" aria-label="heart">❤️</span> by <a href="https://github.com/carmona44">Carmona44</a> with <a href="https://chat.openai.com/chat">ChatGPT</a>
