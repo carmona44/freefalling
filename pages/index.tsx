@@ -41,6 +41,10 @@ function calculateDepth(time: number): number {
   return ACCELERATION_DUE_TO_GRAVITY * time ** 2 / 2;
 }
 
+function calculateImpactVelocity(depth: number, time: number): number {
+  return (depth / 1000) / (time / 3600);
+}
+
 
 function HomePage() {
   const [startTime, setStartTime] = useState<number | null>(null);
@@ -51,6 +55,7 @@ function HomePage() {
     depth: number;
     elapsedTime: number;
     name: string;
+    impactVelocity: Number;
   }[]>([]);
 
   useEffect(() => {
@@ -80,7 +85,7 @@ function HomePage() {
     setStartTime(null);
     // Guardar la medición en el almacenamiento local
     if (depth !== null && elapsedTime !== null) {
-      const newMeasurement = { depth, elapsedTime, name: 'Mediciones' };
+      const newMeasurement = { depth, elapsedTime, name: 'Mediciones', impactVelocity: calculateImpactVelocity(depth, elapsedTime) };
       const newMeasurementHistory = [...measurementHistory, newMeasurement];
       setMeasurementHistory(newMeasurementHistory);
       localStorage.setItem('measurementHistory', JSON.stringify(newMeasurementHistory));
@@ -159,8 +164,9 @@ function HomePage() {
           <thead>
             <tr>
               <th>Nombre</th>
-              <th>Distancia</th>
-              <th>Tiempo</th>
+              <th>Distancia(m)</th>
+              <th>Tiempo(s)</th>
+              <th>Velocidad de impacto(km/h)</th>
               <th></th>
             </tr>
           </thead>
@@ -177,6 +183,7 @@ function HomePage() {
                 </td>
                 <td className="align-middle">{measurement.depth.toFixed(2)}</td>
                 <td className="align-middle">{measurement.elapsedTime.toFixed(2)}</td>
+                <td className="align-middle">{measurement.impactVelocity.toFixed(2)}</td>
                 <td className="align-middle">
                   <button type="button" className="btn btn-danger" onClick={() => handleDeleteClick(index)}>
                     <img src="close.png" />
