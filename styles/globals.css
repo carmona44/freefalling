@@ -8,7 +8,6 @@
 }
 
 .container {
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -32,4 +31,8 @@
   margin: auto;
   margin-bottom: 20px;
   max-width: max-content;
+}
+
+.name {
+  min-width: 200px;
 }

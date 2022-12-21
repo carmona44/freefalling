@@ -85,7 +85,7 @@ function HomePage() {
     setStartTime(null);
     // Guardar la medición en el almacenamiento local
     if (depth !== null && elapsedTime !== null) {
-      const newMeasurement = { depth, elapsedTime, name: 'Mediciones', impactVelocity: calculateImpactVelocity(depth, elapsedTime) };
+      const newMeasurement = { depth, elapsedTime, name: `Medición ${measurementHistory.length + 1}`, impactVelocity: calculateImpactVelocity(depth, elapsedTime) };
       const newMeasurementHistory = [...measurementHistory, newMeasurement];
       setMeasurementHistory(newMeasurementHistory);
       localStorage.setItem('measurementHistory', JSON.stringify(newMeasurementHistory));
@@ -160,39 +160,41 @@ function HomePage() {
           )}
         </div>
         <h3 className="mt-5">Historial de mediciones</h3>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Distancia(m)</th>
-              <th>Tiempo(s)</th>
-              <th>Velocidad de impacto(km/h)</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {measurementHistory.map((measurement, index) => (
-              <tr key={index}>
-                <td className="align-middle">
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={measurement.name}
-                    onChange={event => handleNameChange(event, index)}
-                  />
-                </td>
-                <td className="align-middle">{measurement.depth.toFixed(2)}</td>
-                <td className="align-middle">{measurement.elapsedTime.toFixed(2)}</td>
-                <td className="align-middle">{measurement.impactVelocity.toFixed(2)}</td>
-                <td className="align-middle">
-                  <button type="button" className="btn btn-danger" onClick={() => handleDeleteClick(index)}>
-                    <img src="close.png" />
-                  </button>
-                </td>
+        <div className="table-responsive">
+          <table className="table table-striped table-hover table-borderless">
+            <thead className='table-dark'>
+              <tr>
+                <th>Nombre</th>
+                <th className='text-center'>Distancia(m)</th>
+                <th className='text-center'>Tiempo(s)</th>
+                <th className='text-center'>Velocidad de impacto(km/h)</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {measurementHistory.map((measurement, index) => (
+                <tr key={index}>
+                  <td className="name">
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={measurement.name}
+                      onChange={event => handleNameChange(event, index)}
+                    />
+                  </td>
+                  <td className='text-center'>{measurement.depth.toFixed(2)}</td>
+                  <td className='text-center'>{measurement.elapsedTime.toFixed(2)}</td>
+                  <td className='text-center'>{measurement.impactVelocity.toFixed(2)}</td>
+                  <td>
+                    <button type="button" className="btn btn-danger" onClick={() => handleDeleteClick(index)}>
+                      <img src="close.png" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <h3 className="mt-5">Cómo funciona</h3>
         <p>
           La distancia recorrida por un objeto en caída libre es la distancia que recorre el objeto desde el punto en el que comienza a caer hasta el punto en el que toca el suelo. La caída libre es un movimiento en el que un objeto se deja caer desde una altura sin que ninguna fuerza externa actúe sobre él, por lo que la única fuerza que actúa sobre el objeto es la gravedad.
@@ -227,7 +229,7 @@ function HomePage() {
           Puedes ver una representación visual en el gráfico siguiente:
         </p>
         <Line options={chartOptions} data={chartData} />
-        <p>
+        <p className='mt-5'>
           Esta app usa: <a href="https://www.flaticon.com/free-icons/equis" title="equis icons">Equis icons created by Radhe Icon - Flaticon</a>
         </p>
         <footer className="text-center mt-5 footer-margin">
