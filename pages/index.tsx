@@ -80,21 +80,22 @@ function HomePage() {
     setStartTime(null);
     // Guardar la medición en el almacenamiento local
     if (depth !== null && elapsedTime !== null) {
-      let measurement = { depth, elapsedTime, name: 'Mediciones' };
-      setMeasurementHistory([...measurementHistory, measurement]);
-      localStorage.setItem('measurementHistory', JSON.stringify(measurementHistory));
+      const newMeasurement = { depth, elapsedTime, name: 'Mediciones' };
+      const newMeasurementHistory = [...measurementHistory, newMeasurement];
+      setMeasurementHistory(newMeasurementHistory);
+      localStorage.setItem('measurementHistory', JSON.stringify(newMeasurementHistory));
     }
   }
 
   function handleNameChange(event: React.ChangeEvent<HTMLInputElement>, index: number) {
-    let newMeasurementHistory = [...measurementHistory];
+    const newMeasurementHistory = [...measurementHistory];
     newMeasurementHistory[index].name = event.target.value;
     setMeasurementHistory(newMeasurementHistory);
     localStorage.setItem('measurementHistory', JSON.stringify(newMeasurementHistory));
   }
 
   function handleDeleteClick(index: number) {
-    let newMeasurementHistory = [...measurementHistory];
+    const newMeasurementHistory = [...measurementHistory];
     newMeasurementHistory.splice(index, 1);
     setMeasurementHistory(newMeasurementHistory);
     localStorage.setItem('measurementHistory', JSON.stringify(newMeasurementHistory));
