@@ -26,7 +26,7 @@ export const chartOptions = {
   responsive: true,
   plugins: {
     legend: {
-      display: false,
+      display: true,
     },
     title: {
       display: true,
@@ -42,7 +42,8 @@ function calculateDepth(time: number): number {
 }
 
 function calculateImpactVelocity(depth: number, time: number): number {
-  return (depth / 1000) / (time / 3600);
+  const operation = (depth / 1000) / (time / 3600);
+  return operation || 0;
 }
 
 
@@ -108,6 +109,7 @@ function HomePage() {
 
   const elapsedTimeValues = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
   const depthValues = elapsedTimeValues.map(time => calculateDepth(time));
+  const velocityValues = elapsedTimeValues.map((time, index) => calculateImpactVelocity(depthValues[index], time));
 
   const chartData = {
     labels: elapsedTimeValues, // Array of values for the x-axis
@@ -130,6 +132,25 @@ function HomePage() {
         pointRadius: 1,
         pointHitRadius: 10,
         data: depthValues // Array of values for the y-axis
+      },
+      {
+        label: 'Velocidad (km/h)',
+        fill: false,
+        lineTension: 0.3,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'red',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: velocityValues // Array of values for the y-axis
       }
     ]
   };
